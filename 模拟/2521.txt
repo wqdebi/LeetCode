@@ -1,0 +1,32 @@
+2521. 数组乘积中的不同质因数数目
+给你一个正整数数组 nums ，对 nums 所有元素求积之后，找出并返回乘积中 不同质因数 的数目。
+
+注意：
+
+质数 是指大于 1 且仅能被 1 及自身整除的数字。
+如果 val2 / val1 是一个整数，则整数 val1 是另一个整数 val2 的一个因数。
+
+class Solution {
+public:
+    int distinctPrimeFactors(vector<int>& nums) {
+        unordered_set<int> us;
+        for(int x : nums)
+        {
+            int i = 2;
+            while(i * i <= x)
+            {
+                if(x % i == 0)
+                {
+                    us.insert(i);
+                    x /= i;
+                    while(x % i == 0)
+                        x /= i;
+                }
+                i += 1;
+            }
+            if(x > 1)
+                us.insert(x);
+        }
+        return us.size();
+    }
+};
