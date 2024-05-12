@@ -1,0 +1,13 @@
+class Solution {
+private:
+    unordered_map<int,int> um;
+public:
+    int minDays(int n) {
+        if(um.count(n))
+            return um[n];
+        if(n < 2)
+            return n;
+        um[n] = min(minDays(n / 2) + n % 2 + 1, minDays(n / 3) + 1 + n % 3);
+        return um[n];
+    }
+};
