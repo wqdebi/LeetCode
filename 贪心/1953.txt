@@ -1,0 +1,12 @@
+class Solution {
+public:
+    long long numberOfWeeks(vector<int>& milestones) {
+        long long m = *max_element(milestones.begin(), milestones.end());
+        long long q = accumulate(milestones.begin(), milestones.end(), 0LL) - m;
+        if(m > q)
+            return 2 * q + 1;
+        else{
+            return q + m;
+        }
+    }
+};
