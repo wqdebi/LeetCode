@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        unordered_map<int, int> um;
+        for(const auto& m : matches){
+            int w = m[0], l = m[1];
+            if(!um.count(w)){
+                um[w] = 0;
+            }
+            ++um[l];
+        }
+        vector<vector<int>> output(2);
+        for(const auto& [k, v] : um){
+            if(v < 2)
+            {
+                output[v].push_back(k);
+            }
+        }
+        sort(output[0].begin(), output[0].end());
+        sort(output[1].begin(), output[1].end());
+        return output;
+    }
+};
