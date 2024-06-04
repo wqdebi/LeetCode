@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> countPairsOfConnectableServers(vector<vector<int>>& edges, int signalSpeed) {
+        int n = edges.size() + 1;
+        vector<vector<pair<int, int>>> g(n);
+        for(auto &e : edges){
+            g[e[0]].push_back({e[1], e[2]});
+            g[e[1]].push_back({e[0], e[2]});
+        }
+        function<int(int, int, int)> f = [&](int s, int p, int cur) -> int{
+            int ouput = 0;
+            if(cur == 0)
+                ++ouput;
+            for(auto &[key, value] : g[s]){
+                if(key != p){
+                    ouput += f(key, s, (cur + value) % signalSpeed);
+                }
+            }
+            return ouput;
+        };
+        vector<int> out(n);
+        for(int i = 0; i < n; ++i){
+            int pre = 0;
+            for(auto &[v, c] : g[i]){
+                int cnt = f(v, i, c % signalSpeed);
+                out[i] += pre * cnt;
+                pre += cnt;
+            }
+        }
+        return out;
+    }
+};
