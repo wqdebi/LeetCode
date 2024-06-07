@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int maxOperations(vector<int>& nums) {
+        int tmp = nums[0] + nums[1];
+        int output = 1;
+        int q = 2;
+        while(q + 1 < nums.size()){
+            if(tmp == nums[q] + nums[q + 1])
+                output++;
+            else
+                break;
+            q += 2;
+        }
+        return output;
+    }
+};
