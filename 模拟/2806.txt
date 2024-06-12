@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int accountBalanceAfterPurchase(int purchaseAmount) {
+        int a = purchaseAmount / 10;
+        int b = purchaseAmount % 10;
+        if(b < 5)
+            return 100 - a * 10;
+        return 100 - a * 10 - 10;
+    }
+};
