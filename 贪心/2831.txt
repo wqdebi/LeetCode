@@ -1,0 +1,27 @@
+class Solution {
+public:
+    long long findMaximumElegance(vector<vector<int>>& items, int k) {
+        sort(items.begin(), items.end(), [&](vector<int> &a, vector<int> &b)-> bool{
+            return a[0] > b[0];
+        });
+        unordered_set<int> us;
+        stack<int> stk;
+        long long output = 0, sumitem = 0;
+        int n = items.size();
+        for(int i = 0; i < n; ++i){
+            if(i < k){
+                sumitem += items[i][0];
+                if(!us.count(items[i][1]))
+                    us.insert(items[i][1]);
+                else
+                    stk.push(items[i][0]);
+            }else if(us.count(items[i][1]) == 0 && !stk.empty()){
+                sumitem += items[i][0] - stk.top();
+                stk.pop();
+                us.insert(items[i][1]);
+            }
+            output = max(output, (long long)(sumitem + us.size() * us.size()));
+        }
+        return output;
+    }
+};
