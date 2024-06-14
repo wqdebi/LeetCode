@@ -1,0 +1,17 @@
+class Solution {
+public:
+    long long maxScore(vector<int>& nums, int x) {
+        int n = nums.size();
+        long long dp[2];
+        memset(dp, -114514, sizeof(dp));
+        dp[nums[0] % 2] = nums[0];
+        long long output = nums[0];
+        for(int i = 1; i < n; ++i){
+            int cur = nums[i] % 2;
+            long long tmp = max(dp[cur] + nums[i], dp[1 - cur] + nums[i] - x);
+            output = max(output, tmp);
+            dp[cur] = max(dp[cur], tmp);
+        }
+        return output;
+    }
+};
