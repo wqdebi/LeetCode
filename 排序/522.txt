@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int findLUSlength(vector<string>& strs) {
+        function<bool(const string& a, const string &b)> f = [&](const string &a, const string &b)->bool{
+            int i = 0, j  = 0;
+            while(i < a.size() && j < b.size()){
+                if(a[i] == b[j]){
+                    ++i;
+                }
+                ++j;
+            }
+            return i == a.size();
+        } ;
+        int n = strs.size();
+        int output = -1;
+        for(int i = 0; i < n; ++i){
+            bool x = true;
+            for(int j = 0; j < n; ++j){
+                if(i != j && f(strs[i], strs[j])){
+                    x = false;
+                    break;
+                }
+            }
+            if(x)
+                output = max(output, (int)(strs[i].size()));
+        }
+        return output;
+    }
+};
