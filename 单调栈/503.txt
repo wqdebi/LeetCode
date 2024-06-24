@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int maxi = max_element(nums.begin(), nums.end()) - nums.begin();
+        stack<int> stk;
+        int n = nums.size();
+        vector<int> output(n);
+        output[maxi] = -1;
+        stk.push(nums[maxi]);
+        for(int i = (maxi + n - 1) % n; (i + n) % n != maxi; --i){
+            while(!stk.empty() && stk.top() <= nums[(i + n) % n])
+                stk.pop();
+            if(stk.empty())
+                output[(i + n) % n] = -1;
+            else
+                output[(i + n) % n] = stk.top();
+            stk.push(nums[(i + n) % n]);
+        }
+        return output;
+    }
+};
