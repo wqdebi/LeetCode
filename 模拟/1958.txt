@@ -1,0 +1,27 @@
+class Solution {
+    vector<vector<int>> tmp{{0,1},{0,-1},{1,0},{-1,0},{-1,-1},{-1,1},{1,-1},{1,1}};
+public:
+    bool checkMove(vector<vector<char>>& board, int rMove, int cMove, char color) {
+        int m = board.size(), n = board[0].size();
+        if(rMove < 0 || rMove >= m || cMove < 0 || cMove >= n || board[rMove][cMove] != '.')
+            return false;
+        for(int i = 0; i < 8; ++i){
+            int dr = tmp[i][0], dc = tmp[i][1];
+            int num = 1;
+            int curr = rMove + dr, curc = cMove + dc;
+            while(curr >= 0 && curr < m && curc >= 0 && curc < n && board[curr][curc] != color && board[curr][curc]!='.')
+            {
+                ++num;
+                curr += dr;
+                curc += dc;
+            }
+            if(curr >= 0 && curr < m && curc >= 0 && curc < n && board[curr][curc] == color){
+                ++num;
+                if(num >= 3)
+                return true;
+            }
+            
+        }
+        return false;
+    }
+};
