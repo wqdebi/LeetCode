@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> findIntersectionValues(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size(), m = nums2.size();
+        unordered_set<int> um1(nums1.begin(), nums1.end());
+        unordered_set<int> um2(nums2.begin(), nums2.end());
+        vector<int> output(2);
+        for(int i = 0; i < n; ++i){
+            if(um2.count(nums1[i]))
+                ++output[0];
+        }
+        for(int i = 0; i < m; ++i){
+            if(um1.count(nums2[i]))
+                ++output[1];
+        }
+        return output;
+    }
+};
+
+use std::collections::HashSet;
+impl Solution {
+    pub fn find_intersection_values(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+        let mut hs1: HashSet<i32> = nums1.iter().map(|&x|x).collect();
+        let mut hs2: HashSet<i32> = nums2.iter().map(|&x|x).collect();
+        let mut output: Vec<i32> = vec![0; 2];
+        for i in nums1.iter(){
+            if hs2.contains(i){
+                output[0] += 1;
+            }
+        }
+        for i in nums2.iter(){
+            if hs1.contains(i){
+                output[1] += 1;
+            }
+        }
+        output
+    }
+}
